@@ -1,15 +1,16 @@
 language: clojure
-sudo: true
-before_install: # bc is apparently not provided by default
-   - sudo apt-get install bc
 install:
-   - cd daemon
-   - lein deps
-   - cd ../client
-   - lein deps
-   - cd ..
-script: test/integration.sh
+   - cd daemon; lein deps; cd ..
+   - cd client; lein deps; cd ..
+# TODO: Add naive benchmark tests
+script:
+  - test/integration.sh
 jdk:
   - openjdk7
   - oraclejdk7
   - oraclejdk8
+sudo: false
+addons:
+  apt:
+    packages:
+      - bc
